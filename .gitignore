@@ -1,0 +1,39 @@
+# Credenciales y entorno
+.env
+*.env
+
+# Scripts de prueba temporales
+_*.py
+_*.js
+_*.php
+_*.ts
+_*.tsx
+
+# Logs
+*.log
+
+# Dependencias
+node_modules/
+vendor/
+__pycache__/
+.venv/
+venv/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.cursor/
+*.swp
+*.swo
+*~
+
+# Builds
+dist/
+build/
+.next/
+
+# Workspace files
+*.code-workspace
