@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOA Consultoría — Formulario de Prospección</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#111111;
+  --bg-alt:#1a1a1a;
+  --text:#d4d4d4;
+  --white:#ffffff;
+  --gold:#B8860B;
+  --gold-hover:#9c7209;
+  --gold-border:rgba(184,134,11,0.12);
+  --gold-border-strong:rgba(184,134,11,0.4);
+  --input-border:rgba(255,255,255,0.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:1.5rem}
+.container{max-width:520px;margin:0 auto}
+
+.brand{text-align:center;margin-bottom:1.75rem}
+.brand-name{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:26px;color:var(--gold);letter-spacing:1.3px}
+.brand-tag{font-size:10.5px;color:#888;letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+.form-title{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:22px;color:var(--white);text-align:center;margin-top:14px}
+.form-badge{display:inline-block;margin-top:12px;font-size:10.5px;font-weight:500;color:var(--gold);letter-spacing:2px;text-transform:uppercase;border:1px solid var(--gold-border-strong);border-radius:2px;padding:5px 14px}
+
+.section{background:var(--bg-alt);border:1px solid var(--gold-border);border-radius:2px;padding:1.1rem 1.25rem;margin-bottom:1rem}
+.section-title{font-size:11.5px;font-weight:500;color:var(--gold);text-transform:uppercase;letter-spacing:1.8px;margin-bottom:.85rem}
+.field{margin-bottom:14px}
+.field:last-child{margin-bottom:0}
+.field label{font-size:11px;color:#999;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:7px}
+.field .req{color:var(--gold)}
+input[type=text],input[type=tel],input[type=email],textarea{
+  width:100%;background:#141414;border:1px solid var(--input-border);border-radius:2px;
+  padding:10px 12px;font-size:15px;outline:none;font-family:inherit;color:var(--white)
+}
+input::placeholder,textarea::placeholder{color:#666}
+input:focus,textarea:focus{border-color:var(--gold)}
+textarea{resize:vertical;min-height:80px}
+
+.btn-submit{
+  width:100%;background:var(--gold);color:#111;border:none;border-radius:2px;padding:14px;
+  font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit
+}
+.btn-submit:hover{background:var(--gold-hover)}
+.btn-submit:disabled{background:#555;color:#999;cursor:not-allowed}
+.btn-retry{
+  width:100%;background:transparent;color:var(--gold);border:1px solid var(--gold-border-strong);
+  border-radius:2px;padding:11px;font-size:12px;letter-spacing:1px;text-transform:uppercase;
+  cursor:pointer;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:6px;font-family:inherit
+}
+.btn-retry:hover{background:rgba(184,134,11,0.08)}
+
+.status{border-radius:2px;padding:.85rem 1rem;font-size:13px;margin-top:1rem;display:none;border:1px solid transparent}
+.status-ok{background:rgba(29,158,117,0.1);color:#4fd6a8;border-color:rgba(29,158,117,0.3);display:block}
+.status-err{background:rgba(226,75,74,0.1);color:#f08887;border-color:rgba(226,75,74,0.3);display:block}
+.status-pending{background:var(--gold-border);color:var(--gold);border-color:var(--gold-border-strong);display:block}
+.setup-warning{background:rgba(226,75,74,0.1);color:#f08887;border:1px solid rgba(226,75,74,0.3);border-radius:2px;padding:1rem;font-size:13px;margin-bottom:1rem;line-height:1.5}
+.setup-warning code{background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:2px;font-size:12px;color:#ddd}
+.badge{font-size:11px;background:var(--gold-border);color:var(--gold);padding:2px 8px;border-radius:2px;display:inline-block;margin-left:6px}
+
+.footer-note{text-align:center;font-size:11px;color:#666;margin-top:1.5rem;letter-spacing:.5px}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="brand">
+  <div class="brand-name">BOA</div>
+  <div class="brand-tag">Business Opportunities Architects</div>
+  <div class="form-title">Formulario de Prospección</div>
+  <div class="form-badge">Registro comercial · B2B Chile</div>
+</div>
+
+<div id="setup-warning" class="setup-warning" style="display:none">
+  <strong>Falta terminar la configuración.</strong> Reemplazá <code>HUBSPOT_FORM_GUID</code> en el &lt;script&gt; de este archivo por el GUID del formulario que crees en HubSpot (Marketing &gt; Forms). Mientras tanto el botón de enviar queda deshabilitado.
+</div>
+
+<form id="prospeccion-form">
+  <div class="section">
+    <div class="section-title">Empresa</div>
+    <div class="field">
+      <label for="company">Nombre de la empresa <span class="req">*</span></label>
+      <input type="text" id="company" required>
+    </div>
+    <div class="field">
+      <label for="address">Dirección</label>
+      <input type="text" id="address">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Contacto</div>
+    <div class="field">
+      <label for="firstname">Nombre de contacto <span class="req">*</span></label>
+      <input type="text" id="firstname" required>
+    </div>
+    <div class="field">
+      <label for="phone">Teléfono</label>
+      <input type="tel" id="phone" inputmode="tel">
+    </div>
+    <div class="field">
+      <label for="email">Correo electrónico <span class="req">*</span></label>
+      <input type="email" id="email" required>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Detalle</div>
+    <div class="field">
+      <label for="detalle">Notas de la llamada / observaciones</label>
+      <textarea id="detalle" placeholder="Ej: sin sitio web, solo Instagram. Interesado, volver a llamar el viernes."></textarea>
+    </div>
+  </div>
+
+  <button type="submit" class="btn-submit" id="submit-btn">Enviar a HubSpot</button>
+  <button type="button" class="btn-retry" id="retry-btn" style="display:none">Reintentar envíos pendientes <span class="badge" id="pending-count"></span></button>
+</form>
+
+<div id="status" class="status"></div>
+
+<div class="footer-note">BOA Consultoría SpA · boaconsultoria.cl</div>
+
+</div>
+
+<script>
+// --- Configuración: editar estos dos valores ---
+const HUBSPOT_PORTAL_ID = '51812490';
+const HUBSPOT_FORM_GUID = '812f4930-fda2-4638-b669-0f0107c4c7d1';
+// Usa la propiedad estándar "message" de HubSpot para las notas de la llamada.
+const DETAIL_FIELD_NAME = 'message';
+// -------------------------------------------------
+
+const QUEUE_KEY = 'boa_prospeccion_pendientes';
+const submitBtn = document.getElementById('submit-btn');
+const retryBtn = document.getElementById('retry-btn');
+const statusEl = document.getElementById('status');
+const form = document.getElementById('prospeccion-form');
+
+if (HUBSPOT_FORM_GUID === 'PON_AQUI_EL_FORM_GUID') {
+  document.getElementById('setup-warning').style.display = 'block';
+  submitBtn.disabled = true;
+}
+
+function getQueue() {
+  try { return JSON.parse(localStorage.getItem(QUEUE_KEY)) || []; } catch (e) { return []; }
+}
+function setQueue(q) { localStorage.setItem(QUEUE_KEY, JSON.stringify(q)); }
+function showStatus(type, msg) {
+  statusEl.className = 'status status-' + type;
+  statusEl.textContent = msg;
+}
+function updateRetryButton() {
+  const q = getQueue();
+  if (q.length > 0) {
+    retryBtn.style.display = 'flex';
+    document.getElementById('pending-count').textContent = q.length;
+  } else {
+    retryBtn.style.display = 'none';
+  }
+}
+
+function buildPayload(data) {
+  return {
+    fields: [
+      { name: 'email', value: data.email },
+      { name: 'firstname', value: data.firstname },
+      { name: 'company', value: data.company },
+      { name: 'phone', value: data.phone },
+      { name: 'address', value: data.address },
+      { name: DETAIL_FIELD_NAME, value: data.detalle }
+    ].filter(f => f.value),
+    context: { pageUri: location.href, pageName: 'Formulario de Prospección BOA' }
+  };
+}
+
+async function submitToHubSpot(data) {
+  const url = 'https://api.hsforms.com/submissions/v3/integration/submit/' + HUBSPOT_PORTAL_ID + '/' + HUBSPOT_FORM_GUID;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(buildPayload(data))
+  });
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    throw new Error('HTTP ' + res.status + (body ? ' — ' + body : ''));
+  }
+}
+
+async function flushQueue() {
+  const q = getQueue();
+  if (q.length === 0) return;
+  const remaining = [];
+  for (const item of q) {
+    try { await submitToHubSpot(item); }
+    catch (e) { remaining.push(item); }
+  }
+  setQueue(remaining);
+  updateRetryButton();
+  if (remaining.length === 0 && q.length > 0) {
+    showStatus('ok', 'Se enviaron ' + q.length + ' registro(s) pendiente(s) a HubSpot.');
+  }
+}
+
+form.addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const data = {
+    company: document.getElementById('company').value.trim(),
+    firstname: document.getElementById('firstname').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    address: document.getElementById('address').value.trim(),
+    detalle: document.getElementById('detalle').value.trim()
+  };
+  submitBtn.disabled = true;
+  showStatus('pending', 'Enviando…');
+  try {
+    await submitToHubSpot(data);
+    showStatus('ok', 'Enviado a HubSpot correctamente.');
+    form.reset();
+  } catch (err) {
+    const q = getQueue();
+    q.push(data);
+    setQueue(q);
+    updateRetryButton();
+    showStatus('err', 'Sin conexión o error de envío. Se guardó localmente — usá "Reintentar envíos pendientes" cuando tengas señal.');
+    form.reset();
+  }
+  submitBtn.disabled = (HUBSPOT_FORM_GUID === 'PON_AQUI_EL_FORM_GUID');
+});
+
+retryBtn.addEventListener('click', async function () {
+  retryBtn.disabled = true;
+  showStatus('pending', 'Reintentando envíos pendientes…');
+  await flushQueue();
+  retryBtn.disabled = false;
+});
+
+updateRetryButton();
+if (getQueue().length > 0) flushQueue();
+</script>
+</body>
+</html>
