@@ -33,127 +33,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/boa-core.css" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --black:      #111111;
-      --black-mid:  #1A1A1A;
-      --black-soft: #222222;
-      --gold:       #B8860B;
-      --gold-light: #D4A017;
-      --silver:     #C0C0C0;
-      --silver-dim: #888888;
-      --white:      #FFFFFF;
-      --text-body:  #D4D4D4;
-      --text-muted: #999999;
-      --font-display: 'Playfair Display', Georgia, serif;
-      --font-body:    'Inter', system-ui, sans-serif;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--black);
-      color: var(--text-body);
-      font-family: var(--font-body);
-      font-size: 16px;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 60px;
-      background: rgba(17,17,17,0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(184,134,11,0.15);
-      transition: padding 0.3s;
-    }
-
-    .nav-brand {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--gold);
-      letter-spacing: 0.05em;
-      text-decoration: none;
-      line-height: 1;
-    }
-
-    .nav-brand span {
-      color: var(--silver-dim);
-      font-weight: 300;
-      font-size: 0.72rem;
-      display: block;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      font-family: var(--font-body);
-      margin-top: 3px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 36px;
-      list-style: none;
-      align-items: center;
-    }
-
-    .nav-links a {
-      color: var(--silver);
-      text-decoration: none;
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--gold); }
-
-    .nav-cta {
-      background: transparent !important;
-      border: 1px solid var(--gold) !important;
-      color: var(--gold) !important;
-      padding: 8px 22px !important;
-      border-radius: 2px;
-      transition: background 0.2s, color 0.2s !important;
-      letter-spacing: 0.08em !important;
-    }
-
-    .nav-cta:hover {
-      background: var(--gold) !important;
-      color: var(--black) !important;
-    }
-
-    /* ── GOLD RULE ── */
-    .gold-rule {
-      width: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 0 auto 56px;
-      animation: drawRule 1.2s ease forwards;
-    }
-
-    @keyframes drawRule {
-      to { width: 120px; }
-    }
-
-    .section-eyebrow {
-      font-size: 0.72rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      font-weight: 600;
-      margin-bottom: 16px;
-      font-family: var(--font-body);
-    }
+    /* Reset, variables de marca, tipografía base, nav, footer, botones,
+       WhatsApp flotante, reveal y responsive transversal ahora viven en
+       /assets/css/boa-core.css (BOA-WEB-040). Acá queda únicamente lo
+       exclusivo del sitio corporativo: Hero, Soluciones, Por qué BOA,
+       Quiénes Somos, FAQ y Contacto/formulario. */
 
     /* ── HERO ── */
     #hero {
@@ -266,50 +152,6 @@
       flex-wrap: wrap;
     }
 
-    .btn-primary {
-      background: var(--gold);
-      color: var(--black);
-      border: none;
-      padding: 15px 36px;
-      font-family: var(--font-body);
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-radius: 2px;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-      display: inline-block;
-    }
-
-    .btn-primary:hover {
-      background: var(--gold-light);
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--silver);
-      border: 1px solid rgba(192,192,192,0.3);
-      padding: 15px 36px;
-      font-family: var(--font-body);
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-radius: 2px;
-      cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
-      display: inline-block;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--silver);
-      color: var(--white);
-    }
-
     .hero-stats {
       display: flex;
       gap: 60px;
@@ -333,39 +175,6 @@
       text-transform: uppercase;
       letter-spacing: 0.12em;
       margin-top: 6px;
-    }
-
-    /* ── SECTIONS BASE ── */
-    section {
-      padding: 100px 60px;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 72px;
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.9rem, 3.2vw, 2.7rem);
-      font-weight: 600;
-      color: var(--white);
-      line-height: 1.2;
-      margin-bottom: 16px;
-    }
-
-    .section-subtitle {
-      font-size: 1rem;
-      color: var(--text-muted);
-      max-width: 520px;
-      margin: 0 auto;
-      line-height: 1.75;
-      font-weight: 300;
     }
 
     /* ── QUIÉNES SOMOS ── */
@@ -792,63 +601,18 @@
       text-align: center;
     }
 
-    /* ── FOOTER ── */
-    footer {
-      background: var(--black-mid);
-      border-top: 1px solid rgba(184,134,11,0.12);
-      padding: 40px 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
+    /* Footer base, atribución RiO, scroll reveal, botón WhatsApp y el
+       responsive transversal (nav/section/footer) ahora viven en
+       boa-core.css. Acá solo queda lo que es exclusivamente del
+       sitio corporativo. */
 
-    .footer-brand {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--gold);
-    }
-
-    .footer-slogan {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 0.85rem;
-      color: var(--silver-dim);
-      margin-top: 4px;
-    }
-
-    .footer-legal {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      text-align: center;
-      line-height: 1.7;
-    }
-
-    .footer-rut {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      text-align: right;
-    }
-
-    /* ── SCROLL REVEAL ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── MOBILE ── */
+    /* ── MOBILE (exclusivo del sitio corporativo) ── */
     @media (max-width: 768px) {
-      nav { padding: 16px 24px; }
+      /* Peculiaridad actual del Template 01 — NO promovida a estándar
+         del core (decisión BOA-WEB-040). Pendiente de resolución en la
+         etapa de retoques posteriores a Servicios Generales y Vida y
+         Patrimonio. Ver Hallazgo 1, Informe BOA-WEB-039. */
       .nav-links { display: none; }
-      section { padding: 72px 24px; }
       #hero { padding: 120px 24px 80px; }
       .hero-stats { gap: 32px; flex-wrap: wrap; }
       .hero-trust { gap: 16px; }
@@ -858,16 +622,13 @@
       .contacto-grid { grid-template-columns: 1fr; gap: 40px; }
       .quienes-right { padding-top: 0; }
       .form-row { grid-template-columns: 1fr; }
-      footer { flex-direction: column; text-align: center; }
-      .footer-rut { text-align: center; }
       .contacto-form { padding: 32px 24px; }
       .porque-highlight { padding: 28px 24px; }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .reveal { transition: none; }
-      .gold-rule { animation: none; width: 120px; }
-    }
+  /* Botón "Contactar a BOA" — floating CTA secundario, exclusivo del
+     sitio corporativo. No forma parte del core (solo el botón de
+     WhatsApp está explícitamente definido como componente compartido). */
   .btn-flotante {
     position: fixed;
     bottom: 28px;
@@ -894,38 +655,6 @@
     pointer-events: auto;
   }
   .btn-flotante:hover { background: #9c7209; }
-  .btn-whatsapp {
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    width: 56px;
-    height: 56px;
-    background: #25d366;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    transition: transform 0.2s ease;
-    text-decoration: none;
-  }
-  .btn-whatsapp:hover { transform: scale(1.1); }
-  .btn-whatsapp::before {
-    content: '';
-    position: absolute;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: #25d366;
-    opacity: 0.5;
-    animation: wa-pulse 2s ease-out infinite;
-    pointer-events: none;
-  }
-  @keyframes wa-pulse {
-    0%   { transform: scale(1); opacity: 0.5; }
-    100% { transform: scale(2.2); opacity: 0; }
-  }
 
     /* ── FAQ ── */
     #faq { background: var(--black-mid); }
@@ -1373,34 +1102,16 @@
   <div class="footer-legal">
     © 2026 BOA Consultoría SpA · Las Condes, Santiago de Chile<br/>
     Todos los derechos reservados<br/>
-    <span style="font-size:0.7rem; color:rgba(136,136,136,0.5);">Desarrollado por <a href="https://www.rioimpulsodigital.com" target="_blank" style="color:var(--gold); text-decoration:none; opacity:0.7;">RiO Impulso Digital</a></span>
+    <span class="footer-attribution">Desarrollado por <a href="https://www.rioimpulsodigital.com" target="_blank" rel="noopener noreferrer">RiO Impulso Digital</a></span>
   </div>
 </footer>
 
+<script src="/assets/js/boa-core.js"></script>
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(el => {
-      if (el.isIntersecting) el.target.classList.add('visible');
-    });
-  }, { threshold: 0.12 });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    nav.style.padding = window.scrollY > 60 ? '12px 60px' : '20px 60px';
-  });
-
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) {
-        const top = target.getBoundingClientRect().top + window.scrollY - 68;
-        window.scrollTo({ top, behavior: 'smooth' });
-      }
-    });
-  });
+  // Reveal, contracción del nav al hacer scroll y smooth-scroll de anchors
+  // ahora viven en /assets/js/boa-core.js (BOA-WEB-040). Acá solo queda
+  // lo exclusivo de esta página: selección de servicio, envío del
+  // formulario (HubSpot), botón "Contactar a BOA" y acordeón de FAQ.
 
   function selectService(value) {
     const sel = document.getElementById('servicio');

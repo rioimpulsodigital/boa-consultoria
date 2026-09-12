@@ -1,0 +1,365 @@
+/* ============================================================
+   BOA CORE CSS — Capa técnica compartida del ecosistema BOA
+   ============================================================
+   BOA-WEB-040 · Sitio Web · BOA Consultoría SpA
+
+   Contiene ÚNICAMENTE elementos reutilizables entre los 3 templates:
+     - Template 01 · Corporativo   (sitio institucional, index.html)
+     - Template 02 · Landing/Producto (Servicios Generales, Vida y Patrimonio)
+     - Template 03 · Utilitario    (páginas de una sola acción)
+
+   Modelo obligatorio: CORE COMPARTIDO + CSS específico de cada template.
+   Nada de lo que hay acá es exclusivo de una página — si una regla solo
+   aplica a una sección del sitio corporativo (Hero, Soluciones, Quiénes
+   Somos, FAQ, formulario HubSpot), vive en el <style> local de esa página.
+
+   NOMENCLATURA BOA (propia — no se copian los prefijos fp-/ut- de RiO):
+     - Sin prefijo   → clases y variables del core, canónicas para todo el
+                        ecosistema (.btn-primary, .container, --gold, etc.)
+     - crp-          → exclusivo del Template 01 Corporativo (uso futuro;
+                        las clases ya existentes en index.html no se
+                        renombran en esta tarea para no romper el sitio)
+     - lp-           → exclusivo del Template 02 Landing/Producto
+     - utb-          → exclusivo del Template 03 Utilitario BOA
+
+   Referencia de método: Análisis Previo — Referencias RiO (BOA-WEB-040,
+   Notion), adaptado a la identidad BOA. No se copia diseño ni código de RiO.
+   ============================================================ */
+
+/* ── RESET / BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── VARIABLES DE MARCA ── */
+:root {
+  --black:      #111111;
+  --black-mid:  #1A1A1A;
+  --black-soft: #222222;
+  --gold:       #B8860B;
+  --gold-light: #D4A017;
+  --silver:     #C0C0C0;
+  --silver-dim: #888888;
+  --white:      #FFFFFF;
+  --text-body:  #D4D4D4;
+  --text-muted: #999999;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+}
+
+/* ── TIPOGRAFÍA Y LAYOUT COMPARTIDOS ── */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+section {
+  padding: 100px 60px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 72px;
+}
+
+.section-eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 16px;
+  font-family: var(--font-body);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3.2vw, 2.7rem);
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+.gold-rule {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 0 auto 56px;
+  animation: drawRule 1.2s ease forwards;
+}
+
+@keyframes drawRule {
+  to { width: 120px; }
+}
+
+/* Bandas de contraste — utilidad disponible para nuevos templates.
+   NO se aplicó todavía a ninguna sección del sitio corporativo (eso
+   cambiaría su apariencia actual, fuera del alcance de esta tarea).
+   Método adaptado del ritmo visual de RiO (alternancia clara/oscura),
+   con la paleta propia de BOA. */
+.section--dark  { background: var(--black); color: var(--text-body); }
+.section--light { background: var(--white); color: var(--black); }
+.section--light .section-title { color: var(--black); }
+
+/* ── BOTONES ── */
+.btn-primary {
+  background: var(--gold);
+  color: var(--black);
+  border: none;
+  padding: 15px 36px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--silver);
+  border: 1px solid rgba(192,192,192,0.3);
+  padding: 15px 36px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  display: inline-block;
+}
+
+.btn-secondary:hover {
+  border-color: var(--silver);
+  color: var(--white);
+}
+
+/* ── NAVEGACIÓN (estructura base) ──
+   Solo el esqueleto visual del header. El comportamiento de mobile
+   (ocultar/mostrar enlaces) es una decisión pendiente por template —
+   NO se estandariza acá. Ver Hallazgo 1, Informe BOA-WEB-039: el sitio
+   corporativo hoy oculta .nav-links en mobile sin alternativa; esa regla
+   permanece local al Template 01 y queda pendiente para la etapa de
+   retoques posteriores a Servicios Generales y Vida y Patrimonio. */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 60px;
+  background: rgba(17,17,17,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(184,134,11,0.15);
+  transition: padding 0.3s;
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.nav-brand span {
+  color: var(--silver-dim);
+  font-weight: 300;
+  font-size: 0.72rem;
+  display: block;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-family: var(--font-body);
+  margin-top: 3px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--silver);
+  text-decoration: none;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--gold); }
+
+.nav-cta {
+  background: transparent !important;
+  border: 1px solid var(--gold) !important;
+  color: var(--gold) !important;
+  padding: 8px 22px !important;
+  border-radius: 2px;
+  transition: background 0.2s, color 0.2s !important;
+  letter-spacing: 0.08em !important;
+}
+
+.nav-cta:hover {
+  background: var(--gold) !important;
+  color: var(--black) !important;
+}
+
+/* ── FOOTER (estructura base) ──
+   Estructura mínima compartida: marca+slogan / info legal. Los templates
+   Landing/Producto y Utilitario pueden variar el contenido interno, pero
+   parten de esta misma base — no se define un footer "canónico" único
+   ni se asume que el corporativo sea la referencia definitiva. */
+footer {
+  background: var(--black-mid);
+  border-top: 1px solid rgba(184,134,11,0.12);
+  padding: 40px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.footer-slogan {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--silver-dim);
+  margin-top: 4px;
+}
+
+.footer-legal {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.7;
+}
+
+.footer-rut {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+/* Atribución obligatoria en TODOS los footers de BOA, sin excepción
+   (decisión de negocio, BOA-WEB-040). Antes vivía como estilo inline
+   en index.html — ahora es una clase reutilizable del core. */
+.footer-attribution {
+  font-size: 0.7rem;
+  color: rgba(136,136,136,0.5);
+}
+
+.footer-attribution a {
+  color: var(--gold);
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+/* ── BOTÓN FLOTANTE DE WHATSAPP ── */
+.btn-whatsapp {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 56px;
+  height: 56px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  transition: transform 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-whatsapp:hover { transform: scale(1.1); }
+
+.btn-whatsapp::before {
+  content: '';
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  opacity: 0.5;
+  animation: wa-pulse 2s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes wa-pulse {
+  0%   { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* ── ANIMACIONES / SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none; }
+  .gold-rule { animation: none; width: 120px; }
+}
+
+/* ── RESPONSIVE TRANSVERSAL ──
+   Solo los ajustes de mobile que aplican a TODO el ecosistema, no a una
+   página en particular. El colapso de .nav-links en mobile NO está acá
+   (ver nota en la sección de Navegación, arriba). */
+@media (max-width: 768px) {
+  nav { padding: 16px 24px; }
+  section { padding: 72px 24px; }
+  footer { flex-direction: column; text-align: center; }
+  .footer-rut { text-align: center; }
+}
