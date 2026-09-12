@@ -111,14 +111,17 @@ section {
   to { width: 120px; }
 }
 
-/* Bandas de contraste — utilidad disponible para nuevos templates.
-   NO se aplicó todavía a ninguna sección del sitio corporativo (eso
-   cambiaría su apariencia actual, fuera del alcance de esta tarea).
-   Método adaptado del ritmo visual de RiO (alternancia clara/oscura),
-   con la paleta propia de BOA. */
+/* Bandas de contraste — utilidad de ritmo visual compartida entre
+   templates (definida en BOA-WEB-040, primer uso real en BOA-WEB-042
+   para Servicios Generales). Método adaptado del ritmo visual de RiO
+   (alternancia clara/oscura), con la paleta propia de BOA. No afecta al
+   sitio corporativo: no tiene ninguna sección con estas clases. */
 .section--dark  { background: var(--black); color: var(--text-body); }
 .section--light { background: var(--white); color: var(--black); }
-.section--light .section-title { color: var(--black); }
+.section--light .section-title,
+.section--light h1,
+.section--light h2,
+.section--light h3 { color: var(--black); }
 
 /* ── BOTONES ── */
 .btn-primary {
