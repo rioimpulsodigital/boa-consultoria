@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOA Servicios Generales | Mantención y servicios para empresas</title>
+<meta name="description" content="Mantención, limpieza y apoyo operativo para empresas. Un solo aliado, cotización formal y seguimiento hasta el cierre. Parte de BOA Consultoría SpA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/boa-core.css">
+<style>
+  /* Servicios Generales — Template Landing/Producto (BOA-WEB-041).
+     Reset, variables de marca, tipografía base, container, botones base,
+     footer-attribution, WhatsApp flotante y reveal ya viven en
+     /assets/css/boa-core.css. Acá solo lo exclusivo de esta landing.
+     Prefijo lp- (Landing/Producto) en clases que existen también en el
+     core con valores propios, para no colisionar — convención definida
+     en BOA-WEB-040. */
+  :root{
+    --lp-borde: rgba(255,255,255,0.08);
+  }
+  body{ line-height:1.6; }
+  h1,h2,h3{font-family:var(--font-display);font-weight:700;}
+  img{max-width:100%;display:block;}
+  a{text-decoration:none;color:inherit;}
+  .section{padding:64px 0;}
+  .section-alt{background:var(--black-mid);}
+  .lp-eyebrow{
+    color:var(--gold);
+    font-weight:600;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    font-size:.72rem;
+    margin-bottom:10px;
+    display:block;
+  }
+  h2{font-size:1.7rem;color:var(--white);margin-bottom:14px;}
+  p{color:var(--text-body);font-size:1rem;}
+  .center{text-align:center;}
+  .lp-btn-primary{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--black);
+    font-weight:600;
+    font-family:var(--font-body);
+    padding:15px 34px;
+    border-radius:2px;
+    font-size:.98rem;
+    transition:background .15s ease, transform .15s ease;
+  }
+  .lp-btn-primary:hover{background:var(--gold-light);transform:translateY(-1px);}
+  .lp-btn-secondary{
+    display:inline-block;
+    border:1px solid rgba(184,134,11,0.5);
+    color:var(--gold);
+    font-weight:600;
+    font-family:var(--font-body);
+    padding:14px 30px;
+    border-radius:2px;
+    font-size:.92rem;
+  }
+
+  /* NAV — propia de esta landing: sticky (no fixed) y de un solo CTA,
+     a diferencia del nav completo del sitio corporativo. Clases con
+     prefijo lp- para no heredar los valores del nav corporativo del core. */
+  header.nav{
+    background:rgba(17,17,17,0.95);
+    padding:16px 0;
+    position:sticky;top:0;z-index:50;
+    border-bottom:1px solid var(--lp-borde);
+    backdrop-filter:blur(6px);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;}
+  .lp-nav-brand{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:1.15rem;
+    color:var(--gold);
+    line-height:1.1;
+  }
+  .lp-nav-brand span{
+    display:block;
+    font-family:var(--font-body);
+    font-weight:500;
+    font-size:.68rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:#888;
+    margin-top:3px;
+  }
+  .lp-nav-cta{
+    background:var(--gold);
+    color:var(--black);
+    font-weight:600;
+    padding:9px 18px;
+    border-radius:2px;
+    font-size:.82rem;
+    letter-spacing:.02em;
+  }
+
+  /* HERO */
+  .hero{
+    background:var(--black);
+    color:var(--white);
+    padding:64px 0 56px;
+    text-align:center;
+    border-bottom:1px solid var(--lp-borde);
+  }
+  .hero h1{
+    font-size:2rem;
+    line-height:1.28;
+    color:var(--white);
+    margin-bottom:18px;
+  }
+  .hero p{
+    color:var(--text-body);
+    font-size:1.05rem;
+    max-width:560px;
+    margin:0 auto 30px;
+  }
+  .hero-ctas{display:flex;flex-direction:column;gap:12px;align-items:center;}
+
+  /* TRUST BAR */
+  .trust{
+    background:var(--black-mid);
+    padding:22px 0;
+    border-bottom:1px solid var(--lp-borde);
+  }
+  .trust-inner{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    text-align:center;
+  }
+  .trust-item{font-size:.85rem;font-weight:500;color:var(--silver);}
+  .trust-item span{display:block;color:var(--gold);font-family:var(--font-display);font-weight:700;font-size:1.1rem;margin-bottom:3px;}
+
+  /* DIFERENCIACION */
+  .cols3{display:grid;grid-template-columns:1fr;gap:22px;margin-top:30px;}
+  .card{
+    background:var(--black-mid);
+    border:1px solid var(--lp-borde);
+    border-top:2px solid var(--gold);
+    padding:26px 22px;
+    border-radius:3px;
+  }
+  .card h3{font-family:var(--font-body);font-weight:700;font-size:1.02rem;margin-bottom:10px;color:var(--white);}
+  .card p{font-size:.92rem;color:var(--text-body);}
+
+  /* OFERTA */
+  .servicios-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:30px;}
+  .servicio-item{
+    background:var(--black-mid);
+    border:1px solid var(--lp-borde);
+    border-radius:3px;
+    padding:20px;
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+  }
+  .servicio-num{
+    min-width:36px;height:36px;border-radius:50%;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-family:var(--font-display);font-size:.92rem;
+    flex-shrink:0;
+  }
+  .servicio-item h3{font-family:var(--font-body);font-weight:700;font-size:.98rem;margin-bottom:4px;color:var(--white);}
+  .servicio-item p{font-size:.88rem;color:var(--text-body);}
+  .consulta-nota{
+    text-align:center;
+    margin-top:26px;
+    font-size:.92rem;
+    font-weight:500;
+    color:var(--silver);
+    background:var(--black-mid);
+    border:1px solid var(--lp-borde);
+    padding:16px;
+    border-radius:3px;
+  }
+  .consulta-nota a{color:var(--gold);text-decoration:underline;}
+
+  /* CONVERSION */
+  .conversion{
+    background:var(--black-mid);
+    color:var(--white);
+    padding:56px 0;
+    text-align:center;
+    border-top:1px solid var(--lp-borde);
+    border-bottom:1px solid var(--lp-borde);
+  }
+  .conversion h2{color:var(--white);}
+  .conversion p{color:var(--silver);max-width:520px;margin:0 auto 26px;}
+  .conversion-list{
+    list-style:none;
+    max-width:420px;
+    margin:0 auto 28px;
+    text-align:left;
+  }
+  .conversion-list li{
+    color:var(--text-body);
+    font-size:.92rem;
+    padding:6px 0 6px 26px;
+    position:relative;
+  }
+  .conversion-list li::before{
+    content:"✓";
+    color:var(--gold);
+    position:absolute;left:0;
+    font-weight:700;
+  }
+  .conversion-secondary{margin-top:18px;font-size:.85rem;color:var(--silver);}
+  .conversion-secondary a{color:var(--gold-light);text-decoration:underline;}
+
+  /* OBJECION */
+  .objecion-box{
+    background:var(--black-mid);
+    border:1px solid var(--lp-borde);
+    border-left:2px solid var(--gold);
+    padding:26px 24px;
+    margin-top:26px;
+    border-radius:0 3px 3px 0;
+  }
+
+  /* FAQ */
+  .faq-item{
+    background:var(--black-mid);
+    border:1px solid var(--lp-borde);
+    border-radius:3px;
+    padding:22px;
+    margin-top:16px;
+  }
+  .faq-item h3{font-family:var(--font-body);font-size:1rem;margin-bottom:8px;color:var(--white);}
+  .faq-item p{font-size:.92rem;}
+
+  /* URGENCIA */
+  .urgencia{
+    background:var(--black-mid);
+    border:1px solid var(--lp-borde);
+    border-top:2px solid var(--gold);
+    border-radius:3px;
+    padding:28px 24px;
+    margin-top:26px;
+  }
+
+  /* CTA FINAL */
+  .cta-final{
+    background:var(--black);
+    color:var(--white);
+    text-align:center;
+    padding:64px 0;
+  }
+  .cta-final h2{color:var(--white);}
+  .cta-final p{color:var(--silver);margin-bottom:28px;}
+
+  /* FOOTER — propio de esta landing (variante reducida: link de vuelta
+     a BOA + atribución). El core no define un footer único obligatorio;
+     cada template puede variar la forma visual (decisión BOA-WEB-040).
+     Selector con clase .lp-footer para no heredar el layout flex del
+     footer corporativo del core. */
+  .lp-footer{
+    background:rgba(17,17,17,0.95);
+    padding:26px 0;
+    text-align:center;
+    border-top:1px solid var(--lp-borde);
+  }
+  .lp-footer p{
+    color:#888;
+    font-size:.75rem;
+    line-height:1.8;
+  }
+  .lp-footer a{color:var(--gold-light);}
+  .footer-back{
+    display:block;
+    color:var(--gold);
+    font-size:.78rem;
+    font-weight:500;
+    margin-bottom:8px;
+  }
+
+  @media(min-width:640px){
+    .hero h1{font-size:2.6rem;}
+    .hero-ctas{flex-direction:row;justify-content:center;}
+    .cols3{grid-template-columns:repeat(3,1fr);}
+    .trust-inner{grid-template-columns:repeat(3,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="lp-nav-brand">BOA<span>Servicios Generales</span></div>
+    <a href="https://wa.me/56985921512?text=Hola%2C%20quiero%20solicitar%20una%20cotizaci%C3%B3n%20de%20mantenci%C3%B3n%20para%20mi%20empresa" class="lp-nav-cta">Cotizar</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <span class="lp-eyebrow">Mantención y servicios generales · B2B Chile</span>
+    <h1>Un solo aliado para resolver la mantención de tu empresa, a tiempo.</h1>
+    <p>Limpieza, mantención, reparaciones y apoyo operativo bajo un mismo punto de contacto — con cotización formal y seguimiento hasta el cierre del servicio.</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/56985921512?text=Hola%2C%20quiero%20solicitar%20una%20cotizaci%C3%B3n%20de%20mantenci%C3%B3n%20para%20mi%20empresa" class="lp-btn-primary">Solicitar cotización por WhatsApp</a>
+      <a href="#servicios" class="lp-btn-secondary">Ver servicios</a>
+    </div>
+  </div>
+</section>
+
+<div class="trust">
+  <div class="container trust-inner">
+    <div class="trust-item"><span>B2B</span>Atención exclusiva a empresas, oficinas y comunidades</div>
+    <div class="trust-item"><span>✓</span>Cotización formal y seguimiento hasta el cierre</div>
+    <div class="trust-item"><span>BOA</span>Parte de BOA Consultoría SpA</div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <span class="lp-eyebrow center" style="display:block;text-align:center;">Por qué BOA</span>
+    <h2 class="center">Más que un proveedor de mantención</h2>
+    <p class="center">Funcionamos como un aliado operativo para tu empresa, no como un contacto más en la lista de proveedores.</p>
+    <div class="cols3">
+      <div class="card">
+        <h3>Un solo aliado operativo</h3>
+        <p>Centralizamos distintas necesidades de mantención bajo un mismo punto de contacto, coordinando proveedores y especialistas cuando se requiere.</p>
+      </div>
+      <div class="card">
+        <h3>Procesos formales</h3>
+        <p>Entregamos cotizaciones formales y hacemos seguimiento hasta el cierre del servicio. Nada queda a medias ni sin respaldo.</p>
+      </div>
+      <div class="card">
+        <h3>Respaldo empresarial</h3>
+        <p>Formamos parte de BOA Consultoría SpA: combinamos ejecución operativa con una mirada empresarial, comercial y de gestión.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="servicios">
+  <div class="container">
+    <span class="lp-eyebrow center" style="display:block;text-align:center;">Servicios</span>
+    <h2 class="center">Soluciones para la operación de tu empresa</h2>
+    <p class="center">Trabajamos con cotización personalizada según servicio, materiales, superficie, complejidad, ubicación y frecuencia.</p>
+    <div class="servicios-grid">
+      <div class="servicio-item">
+        <div class="servicio-num">1</div>
+        <div><h3>Limpieza especializada</h3><p>Oficinas, locales comerciales, instalaciones industriales y comunidades.</p></div>
+      </div>
+      <div class="servicio-item">
+        <div class="servicio-num">2</div>
+        <div><h3>Mantención eléctrica y sanitaria</h3><p>Fallas, instalaciones y trabajos menores que no pueden esperar.</p></div>
+      </div>
+      <div class="servicio-item">
+        <div class="servicio-num">3</div>
+        <div><h3>Pintura y revestimientos</h3><p>Mantención preventiva y reparación de deterioro visible.</p></div>
+      </div>
+      <div class="servicio-item">
+        <div class="servicio-num">4</div>
+        <div><h3>Cristalería</h3><p>Reposición e instalación de cristales dañados.</p></div>
+      </div>
+      <div class="servicio-item">
+        <div class="servicio-num">5</div>
+        <div><h3>Reparación e instalación</h3><p>Elementos y arreglos generales para mantener la operación al día.</p></div>
+      </div>
+      <div class="servicio-item">
+        <div class="servicio-num">6</div>
+        <div><h3>Apoyo logístico y operativo</h3><p>Requerimientos puntuales según la necesidad de tu empresa.</p></div>
+      </div>
+    </div>
+    <div class="consulta-nota">
+      ¿No encontrás lo que necesitás? <a href="https://wa.me/56985921512?text=Hola%2C%20tengo%20una%20consulta%20sobre%20un%20servicio%20que%20no%20aparece%20en%20la%20p%C3%A1gina">Consultanos por WhatsApp</a>.
+    </div>
+  </div>
+</section>
+
+<!-- Galería — oculta hasta contar con fotos reales del negocio (BOA-WEB-041).
+     No publicar placeholders. Reactivar cuando exista material verídico.
+<section class="section">
+  <div class="container">
+    <span class="lp-eyebrow center" style="display:block;text-align:center;">Trabajos realizados</span>
+    <h2 class="center">Galería</h2>
+    <div class="galeria-grid">
+      <div class="foto-placeholder">[FOTO: trabajo de limpieza especializada en oficina o local]</div>
+      <div class="foto-placeholder">[FOTO: mantención eléctrica o sanitaria en ejecución]</div>
+      <div class="foto-placeholder">[FOTO: pintura o revestimiento aplicado]</div>
+      <div class="foto-placeholder">[FOTO: reposición de cristal]</div>
+      <div class="foto-placeholder">[FOTO: equipo BOA en terreno]</div>
+      <div class="foto-placeholder">[FOTO: antes/después de un servicio]</div>
+    </div>
+  </div>
+</section>
+-->
+
+<section class="conversion">
+  <div class="container">
+    <span class="lp-eyebrow" style="color:var(--gold)">Solicitar servicio</span>
+    <h2>Contanos qué necesitás y te cotizamos</h2>
+    <p>Escribinos por WhatsApp indicando:</p>
+    <ul class="conversion-list">
+      <li>Qué servicio necesitás</li>
+      <li>Ubicación</li>
+      <li>Dimensiones o cantidades aproximadas</li>
+      <li>Fotografías del trabajo, si es posible</li>
+    </ul>
+    <a href="https://wa.me/56985921512?text=Hola%2C%20quiero%20solicitar%20una%20cotizaci%C3%B3n%20de%20mantenci%C3%B3n%20para%20mi%20empresa" class="lp-btn-primary">Escribir por WhatsApp</a>
+    <div class="conversion-secondary">
+      ¿Preferís hablar directo? Llamá al +56 9 8592 1512 o escribí a <a href="mailto:hola@boaconsultoria.cl">hola@boaconsultoria.cl</a>. Para servicios que requieren evaluación en terreno, también podés solicitar una visita técnica.
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="lp-eyebrow center" style="display:block;text-align:center;">Antes de decidir</span>
+    <h2 class="center">¿Por qué no elegir solo por precio?</h2>
+    <div class="objecion-box">
+      <p>Es común comparar únicamente el valor final de una cotización, sin considerar cumplimiento, coordinación, formalidad, capacidad de respuesta, seguridad y seguimiento del trabajo. Nuestra propuesta no compite por ser la más económica, sino por entregar una solución confiable, correctamente coordinada y con respaldo empresarial — la que realmente resuelve el problema, sin sorpresas después.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <span class="lp-eyebrow center" style="display:block;text-align:center;">Preguntas frecuentes</span>
+    <h2 class="center">Resolvemos tus dudas</h2>
+    <div class="faq-item">
+      <h3>¿Realizan este tipo de trabajo y cuánto cuesta?</h3>
+      <p>Sí. Trabajamos principalmente mediante cotización personalizada: el valor depende del tipo de servicio, materiales, superficie, complejidad, ubicación y frecuencia. Vamos desde servicios puntuales de menor escala hasta proyectos de varios millones de pesos. Escribinos por WhatsApp contándonos qué necesitás y te enviamos una cotización formal.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="lp-eyebrow center" style="display:block;text-align:center;">Urgencia</span>
+    <h2 class="center">Postergar cuesta más que resolver a tiempo</h2>
+    <div class="urgencia">
+      <p>Muchas necesidades de mantención que parecen menores terminan convirtiéndose en reparaciones más costosas cuando se postergan. Filtraciones, problemas eléctricos o sanitarios, deterioro de pinturas y revestimientos, cristales dañados, fallas en instalaciones y falta de limpieza o mantención preventiva pueden afectar la operación, la seguridad y la imagen de tu empresa. Nuestro objetivo es resolver estos requerimientos a tiempo, antes de que el problema crezca, genere interrupciones o implique un costo mayor.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonios — oculta hasta contar con testimonios reales (BOA-WEB-041).
+     No publicar placeholders ni inventar contenido. Reactivar cuando el
+     negocio consiga testimonios verídicos.
+<section class="section section-alt">
+  <div class="container">
+    <span class="lp-eyebrow center" style="display:block;text-align:center;">Testimonios</span>
+    <h2 class="center">Lo que dicen nuestros clientes</h2>
+    <div class="testi-pending">
+      [TESTIMONIOS PENDIENTES — no inventar, esperar a que el negocio los consiga]
+    </div>
+  </div>
+</section>
+-->
+
+<section class="cta-final">
+  <div class="container">
+    <h2>Resolvamos la mantención de tu empresa a tiempo</h2>
+    <p>Escribinos por WhatsApp y te enviamos una cotización formal.</p>
+    <a href="https://wa.me/56985921512?text=Hola%2C%20quiero%20solicitar%20una%20cotizaci%C3%B3n%20de%20mantenci%C3%B3n%20para%20mi%20empresa" class="lp-btn-primary">Solicitar cotización</a>
+  </div>
+</section>
+
+<footer class="lp-footer">
+  <div class="container">
+    <a href="https://boaconsultoria.cl" class="footer-back" target="_blank" rel="noopener">← BOA Consultoría SpA</a>
+    <p>Desarrollado por <a href="https://www.rioimpulsodigital.com" target="_blank" rel="noopener">RiO Impulso Digital</a></p>
+  </div>
+</footer>
+
+<script src="/assets/js/boa-core.js"></script>
+</body>
+</html>
