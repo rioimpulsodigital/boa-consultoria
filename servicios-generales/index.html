@@ -10,12 +10,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/boa-core.css">
 <style>
-  /* Servicios Generales — Template Landing/Producto (BOA-WEB-041).
-     Reset, variables de marca, tipografía base, container, botones base,
-     footer-attribution, WhatsApp flotante y reveal ya viven en
-     /assets/css/boa-core.css. Acá solo lo exclusivo de esta landing.
-     Prefijo lp- (Landing/Producto) en clases que existen también en el
-     core con valores propios, para no colisionar — convención definida
+  /* Servicios Generales — Template Landing/Producto (BOA-WEB-041,
+     complementado en BOA-WEB-042). Reset, variables de marca, tipografía
+     base, container, botones base, WhatsApp flotante y reveal viven en
+     /assets/css/boa-core.css.
+     Desde la complementación de BOA-WEB-042, esta página también
+     comparte el NAV y el FOOTER del sitio corporativo (clases sin
+     prefijo: nav, .nav-brand, .nav-links, .nav-cta, .footer-brand,
+     .footer-slogan, .footer-legal, .footer-attribution — todas del
+     core) — Servicios Generales es parte del mismo sitio, no un
+     micrositio independiente.
+     Acá solo queda lo exclusivo del CONTENIDO de esta landing (hero,
+     tarjetas, servicios, conversión, FAQ, etc.). Prefijo lp- en las
+     clases de contenido que existen también en el core con valores
+     propios de esta landing, para no colisionar — convención definida
      en BOA-WEB-040. */
   :root{
     --lp-borde: rgba(255,255,255,0.08);
@@ -90,49 +98,24 @@
   }
   .lp-btn-secondary:hover{border-color:var(--lp-gold-light);color:var(--lp-gold-light);}
 
-  /* NAV — propia de esta landing: sticky (no fixed) y de un solo CTA,
-     a diferencia del nav completo del sitio corporativo. Clases con
-     prefijo lp- para no heredar los valores del nav corporativo del core. */
-  header.nav{
-    background:rgba(17,17,17,0.95);
-    padding:16px 0;
-    position:sticky;top:0;z-index:50;
-    border-bottom:1px solid var(--lp-borde);
-    backdrop-filter:blur(6px);
-  }
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;}
-  .lp-nav-brand{
-    font-family:var(--font-display);
-    font-weight:700;
-    font-size:1.15rem;
-    color:var(--gold);
-    line-height:1.1;
-  }
-  .lp-nav-brand span{
-    display:block;
-    font-family:var(--font-body);
-    font-weight:500;
-    font-size:.68rem;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-    color:#888;
-    margin-top:3px;
-  }
-  .lp-nav-cta{
-    background:var(--gold);
-    color:var(--black);
-    font-weight:600;
-    padding:9px 18px;
-    border-radius:2px;
-    font-size:.82rem;
-    letter-spacing:.02em;
+  /* NAV — BOA-WEB-042 (complementación): Servicios Generales ahora
+     comparte el sistema de navegación del corporativo (nav/.nav-brand/
+     .nav-links/.nav-cta del core, posición fixed) en vez de su propio
+     header sticky. Solo se ajusta el padding-top del hero para
+     compensar el nav fijo, igual que hace el corporativo. El colapso
+     de .nav-links en mobile tampoco se resuelve acá — mismo pendiente
+     documentado en el corporativo (Hallazgo 1, BOA-WEB-039) — se
+     replica para que ambas páginas se comporten igual, por consistencia. */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero { padding: 120px 0 48px; }
   }
 
   /* HERO */
   .hero{
     background:var(--black);
     color:var(--white);
-    padding:64px 0 56px;
+    padding:96px 0 56px;
     text-align:center;
     border-bottom:1px solid var(--lp-borde);
   }
@@ -179,29 +162,31 @@
   .card h3{font-family:var(--font-body);font-weight:700;font-size:1.02rem;margin-bottom:10px;color:var(--white);}
   .card p{font-size:.92rem;color:var(--text-body);}
 
-  /* OFERTA */
-  .servicios-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:30px;}
+  /* OFERTA — fichas de servicio (BOA-WEB-042 complementación): grilla
+     3x2 en desktop, misma lógica visual que las tarjetas de "Por qué
+     BOA" (bloque independiente, borde superior dorado, buena jerarquía),
+     con identidad propia: número circular dentro de la ficha en vez de
+     al costado. */
+  .servicios-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:30px;}
   .servicio-item{
     background:var(--black-mid);
     border:1px solid var(--lp-borde);
+    border-top:2px solid var(--gold);
     border-radius:3px;
-    padding:20px;
-    display:flex;
-    gap:16px;
-    align-items:flex-start;
+    padding:26px 22px;
     transition:transform .2s ease, border-color .2s ease;
   }
-  .servicio-item:hover{transform:translateY(-2px);border-color:rgba(184,134,11,0.35);}
+  .servicio-item:hover{transform:translateY(-3px);border-color:rgba(184,134,11,0.4);}
   .servicio-num{
-    min-width:36px;height:36px;border-radius:50%;
+    width:36px;height:36px;border-radius:50%;
     border:1px solid var(--gold);
     color:var(--gold);
     display:flex;align-items:center;justify-content:center;
     font-weight:700;font-family:var(--font-display);font-size:.92rem;
-    flex-shrink:0;
+    margin-bottom:16px;
   }
-  .servicio-item h3{font-family:var(--font-body);font-weight:700;font-size:.98rem;margin-bottom:4px;color:var(--white);}
-  .servicio-item p{font-size:.88rem;color:var(--text-body);}
+  .servicio-item h3{font-family:var(--font-body);font-weight:700;font-size:1.02rem;margin-bottom:10px;color:var(--white);}
+  .servicio-item p{font-size:.92rem;color:var(--text-body);}
   .consulta-nota{
     text-align:center;
     margin-top:26px;
@@ -290,49 +275,37 @@
   .cta-final h2{color:var(--white);}
   .cta-final p{color:var(--silver);margin-bottom:28px;}
 
-  /* FOOTER — propio de esta landing (variante reducida: link de vuelta
-     a BOA + atribución). El core no define un footer único obligatorio;
-     cada template puede variar la forma visual (decisión BOA-WEB-040).
-     Selector con clase .lp-footer para no heredar el layout flex del
-     footer corporativo del core. */
-  .lp-footer{
-    background:rgba(17,17,17,0.95);
-    padding:32px 0;
-    text-align:center;
-    border-top:1px solid var(--lp-borde);
-  }
-  .lp-footer p{
-    color:#888;
-    font-size:.75rem;
-    line-height:1.8;
-  }
-  .lp-footer a{color:var(--lp-gold-light);}
-  .footer-back{
-    display:block;
-    color:var(--gold);
-    font-size:.78rem;
-    font-weight:500;
-    margin-bottom:8px;
-  }
+  /* FOOTER — BOA-WEB-042 (complementación): ya no hay footer propio de
+     esta landing. Se reutiliza el mismo footer del sitio corporativo
+     (.footer-brand/.footer-slogan/.footer-legal/.footer-attribution,
+     todos del core) directamente en el HTML — Servicios Generales es
+     parte del mismo sitio, no un micrositio con footer alternativo. */
 
   @media(min-width:640px){
     .hero h1{font-size:2.6rem;}
     .hero-ctas{flex-direction:row;justify-content:center;}
     .cols3{grid-template-columns:repeat(3,1fr);}
     .trust-inner{grid-template-columns:repeat(3,1fr);}
+    .servicios-grid{grid-template-columns:repeat(3,1fr);}
   }
 </style>
 </head>
 <body>
 
-<header class="nav">
-  <div class="container nav-inner">
-    <div class="lp-nav-brand">BOA<span>Servicios Generales</span></div>
-    <a href="https://wa.me/56985921512?text=Hola%2C%20quiero%20solicitar%20una%20cotizaci%C3%B3n%20de%20mantenci%C3%B3n%20para%20mi%20empresa" class="lp-nav-cta">Cotizar</a>
-  </div>
-</header>
+<nav>
+  <a href="#hero" class="nav-brand">
+    BOA
+    <span>Servicios Generales</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#por-que">Por qué BOA</a></li>
+    <li><a href="https://boaconsultoria.cl/">Consultoría</a></li>
+    <li><a href="https://wa.me/56985921512?text=Hola%2C%20quiero%20solicitar%20una%20cotizaci%C3%B3n%20de%20mantenci%C3%B3n%20para%20mi%20empresa" class="nav-cta">Cotizar</a></li>
+  </ul>
+</nav>
 
-<section class="hero">
+<section class="hero" id="hero">
   <div class="container">
     <span class="lp-eyebrow">Mantención y servicios generales · B2B Chile</span>
     <h1>Un solo aliado para resolver la mantención de tu empresa, a tiempo.</h1>
@@ -352,7 +325,7 @@
   </div>
 </div>
 
-<section class="section section--light">
+<section class="section section--light" id="por-que">
   <div class="container">
     <span class="lp-eyebrow center" style="display:block;text-align:center;">Por qué BOA</span>
     <h2 class="center">Más que un proveedor de mantención</h2>
@@ -382,31 +355,37 @@
     <div class="servicios-grid">
       <div class="servicio-item">
         <div class="servicio-num">1</div>
-        <div><h3>Limpieza especializada</h3><p>Oficinas, locales comerciales, instalaciones industriales y comunidades.</p></div>
+        <h3>Limpieza especializada</h3>
+        <p>Oficinas, locales comerciales, instalaciones industriales y comunidades.</p>
       </div>
       <div class="servicio-item">
         <div class="servicio-num">2</div>
-        <div><h3>Mantención eléctrica y sanitaria</h3><p>Fallas, instalaciones y trabajos menores que no pueden esperar.</p></div>
+        <h3>Mantención eléctrica y sanitaria</h3>
+        <p>Fallas, instalaciones y trabajos menores que no pueden esperar.</p>
       </div>
       <div class="servicio-item">
         <div class="servicio-num">3</div>
-        <div><h3>Pintura y revestimientos</h3><p>Mantención preventiva y reparación de deterioro visible.</p></div>
+        <h3>Pintura y revestimientos</h3>
+        <p>Mantención preventiva y reparación de deterioro visible.</p>
       </div>
       <div class="servicio-item">
         <div class="servicio-num">4</div>
-        <div><h3>Cristalería</h3><p>Reposición e instalación de cristales dañados.</p></div>
+        <h3>Cristalería</h3>
+        <p>Reposición e instalación de cristales dañados.</p>
       </div>
       <div class="servicio-item">
         <div class="servicio-num">5</div>
-        <div><h3>Reparación e instalación</h3><p>Elementos y arreglos generales para mantener la operación al día.</p></div>
+        <h3>Reparación e instalación</h3>
+        <p>Elementos y arreglos generales para mantener la operación al día.</p>
       </div>
       <div class="servicio-item">
         <div class="servicio-num">6</div>
-        <div><h3>Apoyo logístico y operativo</h3><p>Requerimientos puntuales según la necesidad de tu empresa.</p></div>
+        <h3>Apoyo logístico y operativo</h3>
+        <p>Requerimientos puntuales según la necesidad de tu empresa.</p>
       </div>
     </div>
     <div class="consulta-nota">
-      ¿No encontrás lo que necesitás? <a href="https://wa.me/56985921512?text=Hola%2C%20tengo%20una%20consulta%20sobre%20un%20servicio%20que%20no%20aparece%20en%20la%20p%C3%A1gina">Consultanos por WhatsApp</a>.
+      ¿No encuentras lo que necesitas? <a href="https://wa.me/56985921512?text=Hola%2C%20tengo%20una%20consulta%20sobre%20un%20servicio%20que%20no%20aparece%20en%20la%20p%C3%A1gina">Consúltanos por WhatsApp</a>.
     </div>
   </div>
 </section>
@@ -432,17 +411,17 @@
 <section class="conversion">
   <div class="container">
     <span class="lp-eyebrow" style="color:var(--gold)">Solicitar servicio</span>
-    <h2>Contanos qué necesitás y te cotizamos</h2>
-    <p>Escribinos por WhatsApp indicando:</p>
+    <h2>Cuéntanos qué necesitas y te cotizamos</h2>
+    <p>Escríbenos por WhatsApp indicando:</p>
     <ul class="conversion-list">
-      <li>Qué servicio necesitás</li>
+      <li>Qué servicio necesitas</li>
       <li>Ubicación</li>
       <li>Dimensiones o cantidades aproximadas</li>
       <li>Fotografías del trabajo, si es posible</li>
     </ul>
     <a href="https://wa.me/56985921512?text=Hola%2C%20quiero%20solicitar%20una%20cotizaci%C3%B3n%20de%20mantenci%C3%B3n%20para%20mi%20empresa" class="lp-btn-primary">Escribir por WhatsApp</a>
     <div class="conversion-secondary">
-      ¿Preferís hablar directo? Llamá al +56 9 8592 1512 o escribí a <a href="mailto:hola@boaconsultoria.cl">hola@boaconsultoria.cl</a>. Para servicios que requieren evaluación en terreno, también podés solicitar una visita técnica.
+      ¿Prefieres hablar directo? Llama al +56 9 8592 1512 o escribe a <a href="mailto:hola@boaconsultoria.cl">hola@boaconsultoria.cl</a>. Para servicios que requieren evaluación en terreno, también puedes solicitar una visita técnica.
     </div>
   </div>
 </section>
@@ -463,7 +442,7 @@
     <h2 class="center">Resolvemos tus dudas</h2>
     <div class="faq-item">
       <h3>¿Realizan este tipo de trabajo y cuánto cuesta?</h3>
-      <p>Sí. Trabajamos principalmente mediante cotización personalizada: el valor depende del tipo de servicio, materiales, superficie, complejidad, ubicación y frecuencia. Vamos desde servicios puntuales de menor escala hasta proyectos de varios millones de pesos. Escribinos por WhatsApp contándonos qué necesitás y te enviamos una cotización formal.</p>
+      <p>Sí. Trabajamos principalmente mediante cotización personalizada: el valor depende del tipo de servicio, materiales, superficie, complejidad, ubicación y frecuencia. Vamos desde servicios puntuales de menor escala hasta proyectos de varios millones de pesos. Escríbenos por WhatsApp contándonos qué necesitas y te enviamos una cotización formal.</p>
     </div>
   </div>
 </section>
@@ -495,15 +474,20 @@
 <section class="cta-final">
   <div class="container">
     <h2>Resolvamos la mantención de tu empresa a tiempo</h2>
-    <p>Escribinos por WhatsApp y te enviamos una cotización formal.</p>
+    <p>Escríbenos por WhatsApp y te enviamos una cotización formal.</p>
     <a href="https://wa.me/56985921512?text=Hola%2C%20quiero%20solicitar%20una%20cotizaci%C3%B3n%20de%20mantenci%C3%B3n%20para%20mi%20empresa" class="lp-btn-primary">Solicitar cotización</a>
   </div>
 </section>
 
-<footer class="lp-footer">
-  <div class="container">
-    <a href="https://boaconsultoria.cl" class="footer-back" target="_blank" rel="noopener">← BOA Consultoría SpA</a>
-    <p>Desarrollado por <a href="https://www.rioimpulsodigital.com" target="_blank" rel="noopener">RiO Impulso Digital</a></p>
+<footer>
+  <div>
+    <div class="footer-brand">BOA Consultoría SpA</div>
+    <div class="footer-slogan">Su crecimiento, operado por nosotros.</div>
+  </div>
+  <div class="footer-legal">
+    © 2026 BOA Consultoría SpA · Las Condes, Santiago de Chile<br/>
+    Todos los derechos reservados<br/>
+    <span class="footer-attribution">Desarrollado por <a href="https://www.rioimpulsodigital.com" target="_blank" rel="noopener noreferrer">RiO Impulso Digital</a></span>
   </div>
 </footer>
 
