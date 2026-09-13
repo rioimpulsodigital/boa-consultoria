@@ -9,6 +9,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/boa-core.css">
+<!-- BOA-WEB-043: precarga solo la primera imagen del hero rotativo (la
+     unica critica para el LCP), seleccionando desktop/mobile por media
+     query para no descargar la variante que no corresponde. -->
+<link rel="preload" as="image" href="/servicios-generales/assets/img/hero-bg-01-desktop.webp" media="(min-width: 769px)">
+<link rel="preload" as="image" href="/servicios-generales/assets/img/hero-bg-01-mobile.webp" media="(max-width: 768px)">
 <style>
   /* Servicios Generales — Template Landing/Producto (BOA-WEB-041,
      complementado en BOA-WEB-042). Reset, variables de marca, tipografía
@@ -107,13 +112,53 @@
     .hero { padding: 120px 0 48px; }
   }
 
-  /* HERO */
+  /* HERO — BOA-WEB-043: fondo rotativo entre 3 imagenes tematicas.
+     Estructura: .hero-bg-rotator (las 3 capas de fondo, absolutas) +
+     .hero-overlay (velo oscuro fijo, siempre por encima de cualquier
+     imagen activa) + .container (contenido, encima de todo). El texto,
+     subtitulo y botones viven solo en .container y nunca se mueven —
+     unicamente cambia la capa .hero-bg activa por debajo. */
   .hero{
+    position:relative;
+    overflow:hidden;
     background:var(--black);
     color:var(--white);
     padding:96px 0 56px;
     text-align:center;
     border-bottom:1px solid var(--lp-borde);
+  }
+  .hero-bg-rotator{
+    position:absolute;
+    inset:0;
+    z-index:0;
+  }
+  .hero-bg{
+    position:absolute;
+    inset:0;
+    background-image:var(--bg-desktop);
+    background-size:cover;
+    background-position:center;
+    opacity:0;
+    transition:opacity 2.4s ease;
+  }
+  .hero-bg.is-active{ opacity:1; }
+  @media (max-width:768px){
+    .hero-bg{ background-image:var(--bg-mobile); }
+  }
+  /* Velo oscuro unico y consistente para las 3 imagenes — nunca se hornea
+     en el WebP, asi puede ajustarse a futuro sin regenerar assets. */
+  .hero-overlay{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    background:linear-gradient(180deg, rgba(17,17,17,.80) 0%, rgba(17,17,17,.68) 45%, rgba(17,17,17,.84) 100%);
+  }
+  .hero .container{
+    position:relative;
+    z-index:2;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-bg{ transition:none; }
   }
   .hero h1{
     font-size:2rem;
@@ -302,6 +347,12 @@
 </nav>
 
 <section class="hero" id="hero">
+  <div class="hero-bg-rotator" aria-hidden="true">
+    <div class="hero-bg is-active" style="--bg-desktop:url(/servicios-generales/assets/img/hero-bg-01-desktop.webp);--bg-mobile:url(/servicios-generales/assets/img/hero-bg-01-mobile.webp)"></div>
+    <div class="hero-bg" data-bg-desktop="/servicios-generales/assets/img/hero-bg-02-desktop.webp" data-bg-mobile="/servicios-generales/assets/img/hero-bg-02-mobile.webp"></div>
+    <div class="hero-bg" data-bg-desktop="/servicios-generales/assets/img/hero-bg-03-desktop.webp" data-bg-mobile="/servicios-generales/assets/img/hero-bg-03-mobile.webp"></div>
+  </div>
+  <div class="hero-overlay" aria-hidden="true"></div>
   <div class="container">
     <span class="lp-eyebrow">Mantención y servicios generales · B2B Chile</span>
     <h1>Un solo aliado para resolver la mantención de tu empresa, a tiempo.</h1>
@@ -492,5 +543,43 @@
 </a>
 
 <script src="/assets/js/boa-core.js"></script>
+<script>
+  // BOA-WEB-043: rotacion del fondo del hero. Solo cambia la capa de
+  // fondo activa (crossfade via opacity/transition en CSS); texto,
+  // subtitulo y botones no se tocan. La 2a y 3a imagen se cargan recien
+  // cuando el navegador esta ocioso (no compiten por ancho de banda con
+  // la 1a imagen ni con las fuentes durante la carga inicial).
+  (function () {
+    var slides = document.querySelectorAll('.hero-bg');
+    if (slides.length < 2) return;
+
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function loadDeferredBackgrounds() {
+      slides.forEach(function (el, i) {
+        if (i === 0) return;
+        var d = el.getAttribute('data-bg-desktop');
+        var m = el.getAttribute('data-bg-mobile');
+        if (d) el.style.setProperty('--bg-desktop', 'url(' + d + ')');
+        if (m) el.style.setProperty('--bg-mobile', 'url(' + m + ')');
+      });
+    }
+
+    if (reduceMotion) return; // deja solo la 1a imagen, fija, sin cargar las otras 2
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadDeferredBackgrounds, { timeout: 2000 });
+    } else {
+      window.addEventListener('load', loadDeferredBackgrounds);
+    }
+
+    var current = 0;
+    setInterval(function () {
+      slides[current].classList.remove('is-active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('is-active');
+    }, 7000);
+  })();
+</script>
 </body>
 </html>
