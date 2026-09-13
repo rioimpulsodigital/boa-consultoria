@@ -27,15 +27,16 @@
      en BOA-WEB-040. */
   :root{
     --lp-borde: rgba(255,255,255,0.08);
-    --lp-borde-light: rgba(17,17,17,0.1);
-    /* BOA-WEB-042: identidad de esta landing usa el dorado claro y el
-       gris ejecutivo tal como se definieron para el ecosistema BOA
-       (#D4AF37 / #4A4A4A) — distintos de los valores tonales que usa
-       hoy el sitio corporativo (--gold-light del core es #D4A017).
-       Variables locales para no alterar el core ni el corporativo. */
+    /* BOA-WEB-042: identidad de esta landing usa el dorado claro tal como
+       se definió para el ecosistema BOA (#D4AF37) — distinto del valor
+       tonal que usa hoy el sitio corporativo (--gold-light del core es
+       #D4A017). Variable local para no alterar el core ni el corporativo. */
     --lp-gold-light: #D4AF37;
+    /* Gris ejecutivo de identidad (#4A4A4A) — se mantiene definido para
+       completitud de la paleta aunque esta revisión (tema oscuro
+       dominante, 2ª complementación de BOA-WEB-042) no tiene una regla
+       activa que lo use; mismo estado que traía desde la base original. */
     --lp-gris: #4A4A4A;
-    --lp-light-bg: #F7F5F2;
   }
   body{ line-height:1.6; }
   h1,h2,h3{font-family:var(--font-display);font-weight:700;}
@@ -43,19 +44,14 @@
   a{text-decoration:none;color:inherit;}
   .section{padding:80px 0;}
   .section-alt{background:var(--black-mid);}
-  /* Bandas claras — usa la utilidad .section--light del core (extendida
-     en BOA-WEB-042 para cubrir h1/h2/h3 genéricos) + overrides locales
-     para los componentes propios de esta landing (card, objecion-box,
-     urgencia, p) que el core no puede conocer. */
-  .section--light p{color:var(--lp-gris);}
-  .section--light .lp-eyebrow{color:var(--gold);}
-  .section--light .card{background:var(--lp-light-bg);border-color:var(--lp-borde-light);border-top-color:var(--gold);}
-  .section--light .card h3{color:var(--black);}
-  .section--light .card p{color:var(--lp-gris);}
-  .section--light .objecion-box{background:var(--lp-light-bg);border-color:var(--lp-borde-light);border-left-color:var(--gold);}
-  .section--light .objecion-box p{color:var(--lp-gris);}
-  .section--light .urgencia{background:var(--lp-light-bg);border-color:var(--lp-borde-light);border-top-color:var(--gold);}
-  .section--light .urgencia p{color:var(--lp-gris);}
+  /* BOA-WEB-042 (2ª complementación): se retira la alternancia de bandas
+     claras — decisión de producto: Servicios Generales continúa el
+     mismo universo oscuro+dorado del corporativo (no es una vertical
+     visualmente separada; esa expresión más luminosa queda reservada
+     para Vida y Patrimonio). El ritmo visual ahora se logra alternando
+     dos tonos oscuros (--black / --black-mid) entre secciones, más
+     paneles de contenido en --black-soft (un tercer tono, apenas más
+     claro) para dar profundidad sin recurrir al blanco. */
   @media(max-width:640px){
     .section{padding:56px 0;}
   }
@@ -151,7 +147,7 @@
   /* DIFERENCIACION */
   .cols3{display:grid;grid-template-columns:1fr;gap:22px;margin-top:30px;}
   .card{
-    background:var(--black-mid);
+    background:var(--black-soft);
     border:1px solid var(--lp-borde);
     border-top:2px solid var(--gold);
     padding:26px 22px;
@@ -169,7 +165,7 @@
      al costado. */
   .servicios-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:30px;}
   .servicio-item{
-    background:var(--black-mid);
+    background:var(--black-soft);
     border:1px solid var(--lp-borde);
     border-top:2px solid var(--gold);
     border-radius:3px;
@@ -193,7 +189,7 @@
     font-size:.92rem;
     font-weight:500;
     color:var(--silver);
-    background:var(--black-mid);
+    background:var(--black-soft);
     border:1px solid var(--lp-borde);
     padding:16px;
     border-radius:3px;
@@ -236,7 +232,7 @@
 
   /* OBJECION */
   .objecion-box{
-    background:var(--black-mid);
+    background:var(--black-soft);
     border:1px solid var(--lp-borde);
     border-left:2px solid var(--gold);
     padding:26px 24px;
@@ -246,7 +242,7 @@
 
   /* FAQ */
   .faq-item{
-    background:var(--black-mid);
+    background:var(--black-soft);
     border:1px solid var(--lp-borde);
     border-radius:3px;
     padding:22px;
@@ -257,7 +253,7 @@
 
   /* URGENCIA */
   .urgencia{
-    background:var(--black-mid);
+    background:var(--black-soft);
     border:1px solid var(--lp-borde);
     border-top:2px solid var(--gold);
     border-radius:3px;
@@ -325,7 +321,7 @@
   </div>
 </div>
 
-<section class="section section--light" id="por-que">
+<section class="section" id="por-que">
   <div class="container">
     <span class="lp-eyebrow center" style="display:block;text-align:center;">Por qué BOA</span>
     <h2 class="center">Más que un proveedor de mantención</h2>
@@ -426,7 +422,7 @@
   </div>
 </section>
 
-<section class="section section--light">
+<section class="section">
   <div class="container">
     <span class="lp-eyebrow center" style="display:block;text-align:center;">Antes de decidir</span>
     <h2 class="center">¿Por qué no elegir solo por precio?</h2>
@@ -447,7 +443,7 @@
   </div>
 </section>
 
-<section class="section section--light">
+<section class="section">
   <div class="container">
     <span class="lp-eyebrow center" style="display:block;text-align:center;">Urgencia</span>
     <h2 class="center">Postergar cuesta más que resolver a tiempo</h2>

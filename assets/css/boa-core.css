@@ -366,3 +366,26 @@ footer {
   footer { flex-direction: column; text-align: center; }
   .footer-rut { text-align: center; }
 }
+
+/* Ancho intermedio (BOA-WEB-042, 2ª complementación): entre el punto donde
+   .nav-links se oculta (768px) y el desktop amplio, un nav con 4 enlaces
+   + marca con tagline larga puede quedarse sin espacio y envolver el
+   texto de cada link a 2 líneas. Se reduce gap/tipografía del nav en vez
+   de tocar el punto de quiebre de 768px — no es el pendiente global del
+   menú mobile (BOA-WEB-039), es solo falta de espacio horizontal. */
+@media (min-width: 769px) and (max-width: 1180px) {
+  nav { padding: 20px 24px; }
+  .nav-links { gap: clamp(8px, 1.6vw, 18px); }
+  .nav-links a { font-size: 0.68rem; letter-spacing: 0.04em; }
+  .nav-cta { padding: 7px 14px !important; }
+  .nav-brand { font-size: 1.2rem; }
+}
+
+/* Extremo angosto de ese mismo rango (769-800px aprox.): la marca con
+   tagline larga todavía compite por espacio. Reduce solo el tagline
+   (span), no el nombre "BOA", para no perder identidad. */
+@media (min-width: 769px) and (max-width: 800px) {
+  .nav-brand span { font-size: 0.6rem; letter-spacing: 0.08em; }
+  .nav-links { gap: 8px; }
+  .nav-links a { font-size: 0.62rem; }
+}
